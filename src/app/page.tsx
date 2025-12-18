@@ -1,119 +1,117 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import Image from "next/image";
+import { MultiStepForm } from "@/components/MultiStepForm";
 
-interface BeforeInstallPromptEvent extends Event {
-  prompt: () => Promise<void>;
-  userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
+function HomeContent() {
+  const searchParams = useSearchParams();
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const [currentStep, setCurrentStep] = useState(1);
+  const [previousStep, setPreviousStep] = useState(1);
+  const [isVictoryMember, setIsVictoryMember] = useState<boolean | null>(null);
+  const [isFlipping, setIsFlipping] = useState(false);
+  const [isFlippingIn, setIsFlippingIn] = useState(false);
+  const [displayImage, setDisplayImage] = useState<string | null>(null);
+
+  // Extract query parameters for pre-filling
+  const initialStep1 = {
+    missionerName: searchParams.get("name") || undefined,
+    nation: searchParams.get("nation") || undefined,
+    date: searchParams.get("date") ? new Date(searchParams.get("date")!) : undefined,
+    church: searchParams.get("church") || undefined,
+  };
+
+  useEffect(() => {
+    // Determine which image should be shown based on step
+    const shouldShowPIC = currentStep === 1 || currentStep === 2;
+    const shouldShowSAF = currentStep === 3 || currentStep === 4;
+    const newImage = shouldShowPIC 
+      ? "/images/PIC.png" 
+      : shouldShowSAF 
+        ? (isVictoryMember === true ? "/images/SAF_victory.png" : "/images/SAF.png")
+        : null;
+
+    if (!newImage) return;
+
+    // Check if we need to flip (transitioning between PIC and SAF)
+    const wasShowingPIC = previousStep === 1 || previousStep === 2;
+    const isShowingPIC = currentStep === 1 || currentStep === 2;
+    const needsFlip = wasShowingPIC !== isShowingPIC && displayImage !== null;
+
+    if (needsFlip) {
+      // Start flip-out animation
+      setIsFlipping(true);
+      setIsFlippingIn(false);
+      
+      // Change image early in flip-out for seamless transition (no pause)
+      setTimeout(() => {
+        setDisplayImage(newImage);
+        setIsFlipping(false);
+        setIsFlippingIn(true);
+        
+        // Remove flip-in class after animation completes
+        setTimeout(() => {
+          setIsFlippingIn(false);
+        }, 500);
+      }, 200); // Switch image early for seamless transition
+    } else {
+      // No flip needed, just update the image
+      if (!displayImage || newImage !== displayImage) {
+        setDisplayImage(newImage);
+      }
+      setIsFlipping(false);
+      setIsFlippingIn(false);
+    }
+
+    setPreviousStep(currentStep);
+    setPreviewImage(newImage);
+  }, [currentStep, isVictoryMember]);
+
+  return (
+    <div className="flex min-h-screen bg-brand-colors-1">
+      {/* Left Panel - Settings */}
+      <div className="w-full lg:w-1/3 bg-white dark:bg-zinc-900 p-4 md:p-6 lg:p-8 overflow-y-auto">
+        <div className="max-w-2xl mx-auto">
+          <h1 className="text-2xl md:text-3xl font-bold mb-6 text-foreground">
+            TDMS Tools
+          </h1>
+          <MultiStepForm 
+            initialStep1={initialStep1}
+            onStepChange={setCurrentStep}
+            onVictoryMemberChange={setIsVictoryMember}
+          />
+        </div>
+      </div>
+
+      {/* Right Panel - Preview (Desktop Only) */}
+      <div className="hidden lg:flex lg:w-2/3 bg-zinc-100 dark:bg-zinc-800 items-center justify-center p-8">
+        <div className="w-full max-w-4xl flip-container">
+          {displayImage && (
+            <div className={`bg-white rounded-lg shadow-lg p-4 flip-image ${isFlipping ? 'flipping' : isFlippingIn ? 'flipping-in' : ''}`}>
+              <Image
+                src={displayImage}
+                alt="Preview"
+                width={800}
+                height={1000}
+                className="w-full h-auto"
+                priority
+              />
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default function Home() {
-  const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
-  const [isInstalled, setIsInstalled] = useState(false);
-  const [showButton, setShowButton] = useState(false);
-
-  useEffect(() => {
-    // Check if app is already installed
-    if (window.matchMedia("(display-mode: standalone)").matches) {
-      setIsInstalled(true);
-      return;
-    }
-
-    // Listen for the beforeinstallprompt event
-    const handleBeforeInstallPrompt = (e: Event) => {
-      e.preventDefault();
-      setDeferredPrompt(e as BeforeInstallPromptEvent);
-      setShowButton(true);
-    };
-
-    window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
-
-    // Check if app was installed after page load
-    window.addEventListener("appinstalled", () => {
-      setIsInstalled(true);
-      setShowButton(false);
-      setDeferredPrompt(null);
-    });
-
-    return () => {
-      window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
-    };
-  }, []);
-
-  const handleInstallClick = async () => {
-    if (!deferredPrompt) {
-      // Fallback for iOS Safari
-      if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-        alert(
-          "To install this app on your iOS device:\n\n" +
-            "1. Tap the Share button at the bottom\n" +
-            "2. Tap 'Add to Home Screen'\n" +
-            "3. Tap 'Add'",
-        );
-      } else {
-        alert("Installation is not available. Please use your browser's menu to install this app.");
-      }
-      return;
-    }
-
-    // Show the install prompt
-    deferredPrompt.prompt();
-
-    // Wait for the user to respond
-    const { outcome } = await deferredPrompt.userChoice;
-
-    if (outcome === "accepted") {
-      setIsInstalled(true);
-      setShowButton(false);
-    }
-
-    // Clear the deferred prompt
-    setDeferredPrompt(null);
-  };
-
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image className="dark:invert" src="svgs/next.svg" alt="Next.js logo" width={100} height={20} priority />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            Welcome to your Next.js Progressive Web App!
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Powered by{" "}
-            <a
-              href="https://serwist.pages.dev/docs"
-              target="_blank"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Serwist.
-            </a>{" "}
-            You may start editing the page.tsx file to get started. You may also test the{" "}
-            <span className="font-medium text-zinc-950 dark:text-zinc-50">download</span> button below.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          {!isInstalled && (showButton || deferredPrompt) && (
-            <button
-              onClick={handleInstallClick}
-              className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[132px]"
-              aria-label="Install app"
-            >
-              <Image className="dark:invert" src="svgs/install.svg" alt="Install icon" width={18} height={18} />
-              Install
-            </button>
-          )}
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://serwist.pages.dev/docs"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <Suspense fallback={<div className="flex min-h-screen bg-brand-colors-1 items-center justify-center">
+      <div className="text-white">Loading...</div>
+    </div>}>
+      <HomeContent />
+    </Suspense>
   );
 }
