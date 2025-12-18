@@ -1,0 +1,51 @@
+{
+  "name": "Next.js PWA",
+  "short_name": "NextPWA",
+    "description": "Welcome to the Next.js Progressive Web App template repository powered by Serwist! This part of the description is editable in the public/manifest.json file.",
+    "icons": [
+    {
+      "src": "/icons/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/android-chrome-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "theme_color": "#000000",
+  "background_color": "#000000",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "screenshots": [
+    {
+      "src": "/screenshots/1.webp",
+      "sizes": "1080x1920",
+      "type": "image/webp",
+      "form_factor": "narrow",
+      "label": "A very descriptive sentence about the screenshot."
+    },
+    {
+      "src": "/screenshots/1.webp",
+      "sizes": "1080x1920",
+      "type": "image/webp",
+      "form_factor": "narrow",
+      "label": "Another descriptive sentence about the screenshot."
+    },
+    {
+      "src": "/screenshots/1.webp",
+      "sizes": "1080x1920",
+      "type": "image/webp",
+      "form_factor": "narrow",
+      "label": "Last descriptive sentence about the screenshot."
+    }
+  ]
+}
