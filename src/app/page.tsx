@@ -47,9 +47,9 @@ export default function Home() {
       if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
         alert(
           "To install this app on your iOS device:\n\n" +
-          "1. Tap the Share button at the bottom\n" +
-          "2. Tap 'Add to Home Screen'\n" +
-          "3. Tap 'Add'"
+            "1. Tap the Share button at the bottom\n" +
+            "2. Tap 'Add to Home Screen'\n" +
+            "3. Tap 'Add'",
         );
       } else {
         alert("Installation is not available. Please use your browser's menu to install this app.");
@@ -75,34 +75,22 @@ export default function Home() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
       <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="svgs/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
+        <Image className="dark:invert" src="svgs/next.svg" alt="Next.js logo" width={100} height={20} priority />
         <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
           <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
             Welcome to your Next.js Progressive Web App!
           </h1>
           <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Powered by 
-            {" "}
+            Powered by{" "}
             <a
               href="https://serwist.pages.dev/docs"
               target="_blank"
               className="font-medium text-zinc-950 dark:text-zinc-50"
             >
               Serwist.
-            </a>
-            {" "}
-            You may start editing the page.tsx file to get started. You may also test the {" "}
-            <span className="font-medium text-zinc-950 dark:text-zinc-50">download</span>
-            {" "}
-            
-            button below.
+            </a>{" "}
+            You may start editing the page.tsx file to get started. You may also test the{" "}
+            <span className="font-medium text-zinc-950 dark:text-zinc-50">download</span> button below.
           </p>
         </div>
         <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
@@ -112,13 +100,7 @@ export default function Home() {
               className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[132px]"
               aria-label="Install app"
             >
-              <Image
-                className="dark:invert"
-                src="svgs/install.svg"
-                alt="Install icon"
-                width={18}
-                height={18}
-              />
+              <Image className="dark:invert" src="svgs/install.svg" alt="Install icon" width={18} height={18} />
               Install
             </button>
           )}

@@ -46,4 +46,4 @@ npm run dev    # or bun dev
 
 ## Contribution 🤝
 
-TDMS Tools is an open source project made by StartWise Philippines and James Louis Lemsic. We welcome contributions from the community! Feel free to fork this repository, make improvements, and submit pull requests. Your contributions help make this tool better for missioners everywhere. 
+TDMS Tools is an open source project made by StartWise Philippines and James Louis Lemsic. We welcome contributions from the community! Feel free to fork this repository, make improvements, and submit pull requests. Your contributions help make this tool better for missioners everywhere.

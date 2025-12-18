@@ -1,4 +1,4 @@
-import localFont from "next/font/local"
+import localFont from "next/font/local";
 
 export const primaryFont = localFont({
   src: [
@@ -19,4 +19,4 @@ export const primaryFont = localFont({
     },
   ],
   variable: "--font-primary-font",
-})
+});

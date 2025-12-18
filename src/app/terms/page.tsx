@@ -7,8 +7,7 @@ import { ArrowLeft } from "lucide-react";
 
 export const metadata = {
   title: "Terms of Service",
-  description:
-    "Guidelines and conditions for using our platform and services responsibly.",
+  description: "Guidelines and conditions for using our platform and services responsibly.",
 };
 
 export default async function Terms() {
@@ -36,12 +35,8 @@ export default async function Terms() {
                 height={1000}
                 className="w-52 h-52 object-contain"
               />
-              <h1 className={`mt-3 text-4xl font-extrabold`}>
-                {metadata.title}
-              </h1>
-              <p className={`mt-2 text-md leading-tight`}>
-                {metadata.description}
-              </p>
+              <h1 className={`mt-3 text-4xl font-extrabold`}>{metadata.title}</h1>
+              <p className={`mt-2 text-md leading-tight`}>{metadata.description}</p>
             </div>
           </div>
 
@@ -56,12 +51,8 @@ export default async function Terms() {
                 height={1000}
                 className="w-52 h-52 object-contain"
               />
-              <h1 className={`mt-3 text-4xl font-extrabold`}>
-                {metadata.title}
-              </h1>
-              <p className={`mt-2 text-lg leading-tight`}>
-                {metadata.description}
-              </p>
+              <h1 className={`mt-3 text-4xl font-extrabold`}>{metadata.title}</h1>
+              <p className={`mt-2 text-lg leading-tight`}>{metadata.description}</p>
             </div>
 
             {/* Content */}
@@ -69,30 +60,12 @@ export default async function Terms() {
               <div className="px-4 py-5 sm:p-6">
                 <ReactMarkdown
                   components={{
-                    h2: ({ ...props }) => (
-                      <h2
-                        className="text-2xl font-bold mt-8 mb-4 text-bc-1"
-                        {...props}
-                      />
-                    ),
-                    h3: ({ ...props }) => (
-                      <h3
-                        className="text-xl font-semibold mt-6 mb-3 pl-5 text-bc-1"
-                        {...props}
-                      />
-                    ),
-                    p: ({ ...props }) => (
-                      <p className="text-base mb-4 pl-10" {...props} />
-                    ),
-                    ul: ({ ...props }) => (
-                      <ul className="list-disc mb-4 pl-20" {...props} />
-                    ),
-                    li: ({ ...props }) => (
-                      <li className="mb-2" {...props} />
-                    ),
-                    a: ({ ...props }) => (
-                      <a className={`hover:underline`} {...props} />
-                    ),
+                    h2: ({ ...props }) => <h2 className="text-2xl font-bold mt-8 mb-4 text-bc-1" {...props} />,
+                    h3: ({ ...props }) => <h3 className="text-xl font-semibold mt-6 mb-3 pl-5 text-bc-1" {...props} />,
+                    p: ({ ...props }) => <p className="text-base mb-4 pl-10" {...props} />,
+                    ul: ({ ...props }) => <ul className="list-disc mb-4 pl-20" {...props} />,
+                    li: ({ ...props }) => <li className="mb-2" {...props} />,
+                    a: ({ ...props }) => <a className={`hover:underline`} {...props} />,
                   }}
                 >
                   {fileContent}

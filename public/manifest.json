@@ -1,8 +1,8 @@
 {
   "name": "TDMS Tools",
   "short_name": "TDMS Tools",
-    "description": "Help mission partners fill out PIC & SAF documents for Ten Days missioners.",
-    "icons": [
+  "description": "Help mission partners fill out PIC & SAF documents for Ten Days missioners.",
+  "icons": [
     {
       "src": "/icons/android-chrome-192x192.png",
       "sizes": "192x192",
