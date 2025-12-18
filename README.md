@@ -1,114 +1,49 @@
-# Next.js PWA Template
+<p align="center">
+  <img src="https://i.imgur.com/HeqsMeo.png" alt="ENC Repo Banner" width="1000"/>
+</p>
 
-A modern, production-ready Progressive Web App (PWA) template built with Next.js 16, React 19, TypeScript, and Serwist. This template provides everything you need to build a fast, installable web application with offline support.
+# TDMS Tools
 
-## ✨ Features
+Help mission partners fill out PIC & SAF documents for Ten Days missioners. Made open source for transparency. Made by missioners, for missioners.
 
-- 🚀 **Next.js 16** with Turbopack for lightning-fast development
-- ⚛️ **React 19** with the latest features
-- 📱 **Progressive Web App** support with Serwist
-- 🎨 **Tailwind CSS v4** for modern styling
-- 📝 **TypeScript** for type safety
-- 🎯 **React Compiler** enabled for optimized performance
-- 📦 **Service Worker** with runtime caching and precaching
-- 🔤 **Geist Fonts** (Sans & Mono) from Vercel
+> [!NOTE]  
+> TDMS Tools is not affliated with Victory Christian Fellowship or Every Nation. However, we are open for integration.
 
-## 🚀 Getting Started
+## Prerequisites ⚠️
 
-### Prerequisites
+The following are the frameworks and tools that you must be familiar with to be able to contribute to this project:
 
-- Node.js 18+ 
-- npm, yarn, pnpm, or bun
+1. [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference) and [TypeScript](https://www.typescriptlang.org/docs/handbook/intro.html)
+2. [Node.js](https://nodejs.org/en/download/) or [Bun](https://bun.sh/) (we personally prefer Bun)
+3. [React](https://react.dev/learn)
+4. [Next.js](https://nextjs.org/learn)
+5. [Tailwind CSS](https://tailwindcss.com/docs)
 
-### Installation
+## Running Locally 🏠
 
-1. **Clone or use this template**
-   ```bash
-   git clone https://github.com/startwiseph/next-pwa.git
-   ```
+1. Run the following in your terminal starting with cloning the repository:
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Run the development server**
-   ```bash
-   npm run dev
-   ```
-
-## 📁 Project Structure
-A quick rundown of the entire repository. Feel free to own this and edit according to your need.
-```
-next-pwa/
-├── public/
-│   ├── manifest.json          # PWA manifest configuration
-│   ├── screenshots/           # Screenshots
-│   └── svgs/                  # Static SVG assets
-│
-├── src/
-│   ├── app/
-│   │   ├── layout.tsx         # Root layout with metadata
-│   │   ├── page.tsx           # Home page
-│   │   └── globals.css        # Global styles with Tailwind
-│   └── sw.ts                  # Service worker configuration
-│
-├── next.config.ts             # Next.js configuration with Serwist
-├── tsconfig.json              # TypeScript configuration
-├── vitest.config.ts           # Vitest test configuration
-└── postcss.config.mjs         # PostCSS configuration
+```bash
+git clone https://github.com/startwiseph/tdms-tools.git
 ```
 
-## ⚙️ Configuration
+2. Create a `.env.local` file at the root of the project with the contents of `.env.example` and fill in the keys.
 
 > [!IMPORTANT]
-> Serwist is disabled in development mode due to Turbopack compatibility. The service worker will only be active in production builds. This is configured automatically in `next.config.ts`.
+> The project will not run properly without the environment variables. Seek assistance from other developers in the team if you don't have the necessary values for the variables.
 
-### PWA Configuration
+3. Install dependencies:
 
-The PWA is configured using Serwist in `next.config.ts`. The service worker is automatically disabled in development mode to avoid Turbopack compatibility issues.
+```bash
+npm install    # or bun install
+```
 
-**Key settings:**
-- Service worker source: `src/sw.ts`
-- Service worker destination: `public/sw.js`
-- Disabled in development (enabled in production only)
+4. Run the development server:
 
-### Service Worker
+```bash
+npm run dev    # or bun dev
+```
 
-The service worker (`src/sw.ts`) includes:
-- **Precaching** of static assets
-- **Runtime caching** with default strategies
-- **Navigation preload** for faster navigation
-- **Skip waiting** and **clients claim** for immediate updates
+## Contribution 🤝
 
-### PWA Manifest
-
-Edit `public/manifest.json` to customize:
-- App name and description
-- Icons and theme colors
-- Display mode and orientation
-- Start URL
-
-## 📱 PWA Features
-
-### Installation
-
-Users can install your PWA on:
-- **Desktop**: Chrome, Edge, Safari (macOS)
-- **Mobile**: Chrome (Android), Safari (iOS)
-
-### Offline Support
-
-The service worker provides:
-- Offline page caching
-- API response caching
-- Image and asset caching
-- Background sync capabilities
-
-### Customization
-
-To customize caching strategies, edit `src/sw.ts` and modify the `runtimeCaching` configuration. See the [Serwist documentation](https://serwist.pages.dev/docs/build/configuring) for more options.
-
-## 🤝 Contributing
-
-This is a public template. Feel free to fork, modify, and use it for your projects!
+TDMS Tools is an open source project made by StartWise Philippines and James Louis Lemsic. We welcome contributions from the community! Feel free to fork this repository, make improvements, and submit pull requests. Your contributions help make this tool better for missioners everywhere. 
