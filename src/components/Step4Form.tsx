@@ -172,27 +172,32 @@ export function Step4Form({ initialValues, onDataChange }: Step4FormProps) {
   if (!selectedMethod) {
     return (
       <div className="space-y-6">
-        <h2 className="text-xl font-semibold text-foreground">Signature</h2>
+        <div>
+          <h2 className="text-xl font-semibold text-white">Signature</h2>
+          <p className="text-sm text-white/70 mt-1">
+            Last step! Add your signature for the form to be complete. The app will not store your signature and will only use it to append to the document.
+          </p>
+        </div>
         
         <div className="grid grid-cols-2 gap-4">
           {/* Upload Button */}
           <button
             type="button"
             onClick={() => setSelectedMethod("upload")}
-            className="aspect-square border-2 border-gray-300 rounded-lg p-6 flex flex-col items-center justify-center gap-4 hover:border-blue-500 hover:bg-blue-50 transition-colors"
+            className="aspect-square border-2 border-white rounded-lg p-6 flex flex-col items-center justify-center gap-4 hover:border-white/80 hover:bg-white/10 transition-colors"
           >
-            <Upload className="h-12 w-12 text-gray-600" />
-            <span className="text-lg font-semibold text-gray-700">Upload</span>
+            <Upload className="h-12 w-12 text-white" />
+            <span className="text-lg font-semibold text-white">Upload</span>
           </button>
 
           {/* Draw Button */}
           <button
             type="button"
             onClick={() => setSelectedMethod("draw")}
-            className="aspect-square border-2 border-gray-300 rounded-lg p-6 flex flex-col items-center justify-center gap-4 hover:border-blue-500 hover:bg-blue-50 transition-colors"
+            className="aspect-square border-2 border-white rounded-lg p-6 flex flex-col items-center justify-center gap-4 hover:border-white/80 hover:bg-white/10 transition-colors"
           >
-            <Pencil className="h-12 w-12 text-gray-600" />
-            <span className="text-lg font-semibold text-gray-700">Draw</span>
+            <Pencil className="h-12 w-12 text-white" />
+            <span className="text-lg font-semibold text-white">Draw</span>
           </button>
         </div>
       </div>
@@ -202,11 +207,17 @@ export function Step4Form({ initialValues, onDataChange }: Step4FormProps) {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold text-foreground">Signature</h2>
+        <div>
+          <h2 className="text-xl font-semibold text-white">Signature</h2>
+          <p className="text-sm text-white/70 mt-1">
+            Last step! Add your signature for the form to be complete. The app will not store your signature and will only use it to append to the document.
+          </p>
+        </div>
         <Button
           type="button"
           variant="ghost"
           size="sm"
+          className="text-white hover:bg-white/10"
           onClick={() => {
             setSelectedMethod(null);
             setSignatureType(null);
@@ -231,14 +242,14 @@ export function Step4Form({ initialValues, onDataChange }: Step4FormProps) {
         {/* Upload Option */}
         {selectedMethod === "upload" && (
           <div className="space-y-2">
-            <Label>Upload Signature</Label>
+            <Label className="text-white">Upload Signature</Label>
           <div
             className={cn(
               "border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors",
               isDragging
-                ? "border-blue-500 bg-blue-50"
-                : "border-gray-300 hover:border-gray-400",
-              signatureType === "upload" && "border-blue-500 bg-blue-50"
+                ? "border-white bg-white/10"
+                : "border-white/30 hover:border-white/50",
+              signatureType === "upload" && "border-white bg-white/10"
             )}
             onDrop={handleDrop}
             onDragOver={handleDragOver}
@@ -255,7 +266,7 @@ export function Step4Form({ initialValues, onDataChange }: Step4FormProps) {
             {uploadedFile ? (
               <div className="space-y-2">
                 <div className="flex items-center justify-center gap-2">
-                  <span className="text-sm font-medium">{uploadedFile.name}</span>
+                  <span className="text-sm font-medium text-white">{uploadedFile.name}</span>
                   <button
                     type="button"
                     onClick={(e) => {
@@ -275,9 +286,9 @@ export function Step4Form({ initialValues, onDataChange }: Step4FormProps) {
               </div>
             ) : (
               <div className="space-y-2">
-                <Upload className="h-8 w-8 mx-auto text-gray-400" />
-                <p className="text-sm text-gray-600">Drop Files</p>
-                <p className="text-xs text-gray-500">or click to browse</p>
+                <Upload className="h-8 w-8 mx-auto text-white/50" />
+                <p className="text-sm text-white/70">Drop Files</p>
+                <p className="text-xs text-white/50">or click to browse</p>
               </div>
             )}
           </div>
@@ -287,7 +298,7 @@ export function Step4Form({ initialValues, onDataChange }: Step4FormProps) {
         {/* Draw Signature Option */}
         {selectedMethod === "draw" && (
           <div className="space-y-2">
-            <Label>Draw Signature</Label>
+            <Label className="text-white">Draw Signature</Label>
           <div className="border rounded-lg p-4 bg-white">
             <canvas
               ref={canvasRef}
@@ -307,6 +318,7 @@ export function Step4Form({ initialValues, onDataChange }: Step4FormProps) {
                 type="button"
                 variant="outline"
                 size="sm"
+                className="border-white text-white hover:bg-white/10 hover:border-white"
                 onClick={clearSignature}
               >
                 Clear

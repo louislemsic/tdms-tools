@@ -4,6 +4,7 @@ import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { MultiStepForm } from "@/components/MultiStepForm";
+import { PrivacyInfoBanner } from "@/components/PrivacyInfoBanner";
 
 function HomeContent() {
   const searchParams = useSearchParams();
@@ -70,23 +71,58 @@ function HomeContent() {
   }, [currentStep, isVictoryMember]);
 
   return (
-    <div className="flex min-h-screen bg-brand-colors-1">
+    <div className="flex min-h-screen bg-bc-1">
       {/* Left Panel - Settings */}
-      <div className="w-full lg:w-1/3 bg-white dark:bg-zinc-900 p-4 md:p-6 lg:p-8 overflow-y-auto">
+      <div className="w-full lg:w-1/3 bg-bc-2 p-4 md:p-6 lg:p-8 overflow-y-auto">
         <div className="max-w-2xl mx-auto">
-          <h1 className="text-2xl md:text-3xl font-bold mb-6 text-foreground">
-            TDMS Tools
-          </h1>
+          <div className="mb-6 flex items-center gap-4">
+            <Image
+              src="/images/logo_full.png"
+              alt="TDMS Tools Logo"
+              width={560}
+              height={1000}
+              className="h-24 md:h-20 w-auto object-contain shrink-0"
+              priority
+            />
+            <div className="flex-1 min-w-0">
+              <PrivacyInfoBanner />
+            </div>
+          </div>
           <MultiStepForm 
             initialStep1={initialStep1}
             onStepChange={setCurrentStep}
             onVictoryMemberChange={setIsVictoryMember}
           />
+          
+          {/* Footer */}
+          <footer className="mt-8 pt-6 border-t border-white/20">
+            <p className="text-xs text-white/70 leading-relaxed">
+              {new Date().getFullYear()} © TDMS Tools. All rights reserved. Made by{" "}
+              <a 
+                href="https://instagram.com/louislemsic" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-white hover:underline"
+              >
+                James Louis Lemsic
+              </a>
+              . This project is made open source for developers to audit the source code and enable others to contribute,{" "}
+              <a 
+                href="https://github.com/startwiseph/tdms-tools" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-white hover:underline"
+              >
+                click here to see the GitHub Repository
+              </a>
+              .
+            </p>
+          </footer>
         </div>
       </div>
 
       {/* Right Panel - Preview (Desktop Only) */}
-      <div className="hidden lg:flex lg:w-2/3 bg-zinc-100 dark:bg-zinc-800 items-center justify-center p-8">
+      <div className="hidden lg:flex lg:w-2/3 bg-bc-1/20 items-center justify-center p-8">
         <div className="w-full max-w-4xl flip-container">
           {displayImage && (
             <div className={`bg-white rounded-lg shadow-lg p-4 flip-image ${isFlipping ? 'flipping' : isFlippingIn ? 'flipping-in' : ''}`}>
@@ -108,7 +144,7 @@ function HomeContent() {
 
 export default function Home() {
   return (
-    <Suspense fallback={<div className="flex min-h-screen bg-brand-colors-1 items-center justify-center">
+    <Suspense fallback={<div className="flex min-h-screen bg-bc-1 items-center justify-center">
       <div className="text-white">Loading...</div>
     </div>}>
       <HomeContent />

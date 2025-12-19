@@ -140,7 +140,7 @@ export function Step1Form({ initialValues, onDataChange }: Step1FormProps) {
               variant="outline"
               role="combobox"
               aria-expanded={nationSearchOpen}
-              className="w-full justify-between bg-background"
+              className="w-full justify-between hover:bg-white hover:border-bc-1/30"
             >
               {selectedCountry ? (
                 <span className="flex items-center gap-2">
@@ -159,7 +159,6 @@ export function Step1Form({ initialValues, onDataChange }: Step1FormProps) {
                 placeholder="Search country..."
                 value={nationSearchValue}
                 onChange={(e) => setNationSearchValue(e.target.value)}
-                className="bg-background"
               />
             </div>
             <div className="max-h-[300px] overflow-y-auto">
@@ -173,8 +172,8 @@ export function Step1Form({ initialValues, onDataChange }: Step1FormProps) {
                     key={country.code}
                     type="button"
                     className={cn(
-                      "relative flex w-full cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none hover:bg-accent hover:text-accent-foreground",
-                      nation === country.code && "bg-accent text-accent-foreground"
+                      "relative flex w-full cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none hover:bg-bc-1/10 hover:text-bc-1",
+                      nation === country.code && "bg-bc-1/10 text-bc-1"
                     )}
                     onClick={() => {
                       setNation(country.code);
@@ -206,12 +205,12 @@ export function Step1Form({ initialValues, onDataChange }: Step1FormProps) {
               id="travel-date"
               variant="outline"
               className={cn(
-                "w-full justify-start text-left font-normal",
-                !date && "text-muted-foreground"
+                "w-full justify-start text-left font-normal hover:bg-white hover:border-bc-1/30",
+                !date && "text-bc-3"
               )}
             >
-              <CalendarIcon className="mr-2 h-4 w-4" />
-              {date ? format(date, "PPP") : <span>Pick a date</span>}
+              <CalendarIcon className={cn("mr-2 h-4 w-4", !date ? "text-bc-3" : "")} />
+              {date ? format(date, "PPP") : <span className="text-bc-3">Pick a date</span>}
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-auto p-0" align="start">
@@ -224,7 +223,7 @@ export function Step1Form({ initialValues, onDataChange }: Step1FormProps) {
                 today.setHours(0, 0, 0, 0);
                 return date < today;
               }}
-              className="rounded-md border"
+              className="rounded-md border w-[350px]"
             />
           </PopoverContent>
         </Popover>

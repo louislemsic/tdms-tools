@@ -15,7 +15,7 @@ export default async function Terms() {
   const fileContent = fs.readFileSync(filePath, "utf8");
 
   return (
-    <main className={`min-h-screen bg-brand-2 text-white bg-[#154a8f]`}>
+    <main className={`min-h-screen bg-bc-1 text-white`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Mobile Back Button - only visible on mobile */}
         <div className="lg:hidden fixed top-6 left-6 z-10">

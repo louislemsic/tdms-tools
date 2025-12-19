@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ProgressBar } from "@/components/ProgressBar";
-import { PrivacyInfoBanner } from "@/components/PrivacyInfoBanner";
 import { Step1Form, type Step1Data } from "@/components/Step1Form";
 import { Step2Form, type Step2Data } from "@/components/Step2Form";
 import { Step3Form, type Step3Data } from "@/components/Step3Form";
@@ -151,8 +150,8 @@ export function MultiStepForm({
     return (
       <div className="space-y-6">
         <div className="min-h-[400px] flex flex-col items-center justify-center gap-4">
-          <Loader2 className="h-12 w-12 animate-spin text-blue-600" />
-          <p className="text-lg text-gray-600">Processing...</p>
+          <Loader2 className="h-12 w-12 animate-spin text-bc-1" />
+          <p className="text-lg text-bc-1/70">Processing...</p>
         </div>
       </div>
     );
@@ -164,9 +163,9 @@ export function MultiStepForm({
       <div className="space-y-6">
         <div className="min-h-[400px] flex flex-col items-center justify-center gap-6">
           <div className="text-center space-y-4">
-            <div className="h-16 w-16 mx-auto rounded-full bg-green-100 flex items-center justify-center">
+            <div className="h-16 w-16 mx-auto rounded-full bg-bc-1/20 flex items-center justify-center">
               <svg
-                className="h-8 w-8 text-green-600"
+                className="h-8 w-8 text-bc-1"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -179,7 +178,7 @@ export function MultiStepForm({
                 />
               </svg>
             </div>
-            <h3 className="text-2xl font-semibold text-gray-900">
+            <h3 className="text-2xl font-semibold text-bc-1">
               All done, the files should be downloaded.
             </h3>
           </div>
@@ -199,8 +198,6 @@ export function MultiStepForm({
         totalSteps={4}
       />
       
-      <PrivacyInfoBanner />
-      
       <div className="min-h-[400px]">
         {renderStep()}
       </div>
@@ -210,7 +207,7 @@ export function MultiStepForm({
           <Button
             onClick={handleBack}
             variant="outline"
-            className="border-2 hover:bg-primary hover:text-primary-foreground hover:border-primary transition-colors"
+            className="bg-white hover:border-white/80 hover:bg-white/10 hover:text-white"
           >
             <ChevronLeft className="h-4 w-4" />
             Back
@@ -222,7 +219,7 @@ export function MultiStepForm({
           <Button
             onClick={handleNext}
             variant="outline"
-            className="border-2 hover:bg-primary hover:text-primary-foreground hover:border-primary transition-colors"
+            className="bg-white hover:border-white/80 hover:bg-white/10 hover:text-white"
           >
             Next
             <ChevronRight className="h-4 w-4" />
@@ -231,7 +228,7 @@ export function MultiStepForm({
           <Button
             onClick={handleFinish}
             variant="outline"
-            className="border-2 hover:bg-primary hover:text-primary-foreground hover:border-primary transition-colors"
+            className="bg-white hover:border-white/80 hover:bg-white/10 hover:text-white"
           >
             Finish
           </Button>

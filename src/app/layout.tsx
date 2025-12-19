@@ -4,7 +4,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   manifest: "/manifest.json",
-  title: "TDMS Tools",
+  title: "TDMS Tools | PIC & SAF Generator",
 };
 
 export default function RootLayout({

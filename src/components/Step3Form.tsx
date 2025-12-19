@@ -46,10 +46,10 @@ export function Step3Form({ initialValues, onDataChange }: Step3FormProps) {
         {accountabilityQuestions.map((questionData, index) => (
           <div key={index}>
             <div className="space-y-4">
-              <Label className="text-base font-medium">
-                {questionData.question.split("*")[0]}
+              <Label className="text-base font-semibold">
+                {index + 1}. {questionData.question.split("*")[0]}
                 {questionData.question.includes("*") && (
-                  <span className="text-red-500">*</span>
+                  <span className="text-white">*</span>
                 )}
               </Label>
               <RadioGroup
@@ -71,7 +71,7 @@ export function Step3Form({ initialValues, onDataChange }: Step3FormProps) {
               </RadioGroup>
             </div>
             {index < accountabilityQuestions.length - 1 && (
-              <div className="border-t border-gray-200 mt-6 pt-6" />
+              <div className="border-t border-bc-3/90 mt-6 pt-6" />
             )}
           </div>
         ))}
