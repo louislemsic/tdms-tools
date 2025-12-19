@@ -3,6 +3,7 @@
 import { useEffect, useState, Suspense, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
+import Link from "next/link";
 import { MultiStepForm } from "@/components/MultiStepForm";
 import { PrivacyInfoBanner } from "@/components/PrivacyInfoBanner";
 import { LivePreview } from "@/components/LivePreview";
@@ -98,6 +99,18 @@ function HomeContent() {
               >
                 click here to see the GitHub Repository
               </a>
+              {" "}
+              <span className="font-bold text-base">·</span>
+              {" "}
+              <Link href="/privacy" className="text-white hover:underline">
+                Privacy Policy
+              </Link>
+              {" "}
+              <span className="font-bold text-base">·</span>
+              {" "}
+              <Link href="/terms" className="text-white hover:underline">
+                Terms of Service
+              </Link>
               .
             </p>
           </footer>
