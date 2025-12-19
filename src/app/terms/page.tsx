@@ -29,13 +29,13 @@ export default async function Terms() {
           <div className="hidden lg:block lg:w-1/3 pt-12">
             <div className="sticky top-56">
               <Image
-                src="/images/logo.png"
+                src="/images/logo_full.png"
                 alt="TDMS Tools Logo"
                 width={1000}
                 height={1000}
-                className="w-52 h-52 object-contain"
+                className="w-72 h-72 object-contain"
               />
-              <h1 className={`mt-3 text-4xl font-extrabold`}>{metadata.title}</h1>
+              <h1 className={`mt-1 text-4xl font-extrabold`}>{metadata.title}</h1>
               <p className={`mt-2 text-md leading-tight`}>{metadata.description}</p>
             </div>
           </div>
@@ -45,13 +45,13 @@ export default async function Terms() {
             {/* Mobile/Tablet header */}
             <div className="lg:hidden mb-8 pl-6">
               <Image
-                src="/images/logo.png"
+                src="/images/logo_full.png"
                 alt="ENC Logo"
                 width={1000}
                 height={1000}
-                className="w-52 h-52 object-contain"
+                className="w-72 h-72 object-contain"
               />
-              <h1 className={`mt-3 text-4xl font-extrabold`}>{metadata.title}</h1>
+              <h1 className={`mt-1 text-4xl font-extrabold`}>{metadata.title}</h1>
               <p className={`mt-2 text-lg leading-tight`}>{metadata.description}</p>
             </div>
 
