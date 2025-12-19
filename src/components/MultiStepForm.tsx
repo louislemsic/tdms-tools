@@ -178,8 +178,8 @@ export function MultiStepForm({ initialStep1, initialStep2, onVictoryMemberChang
 
       // Generate SAF image
       const safBlob = await generateSAF(step2Data, step3Data, step4DataWithSignature, accountabilityQuestions);
-      const safFilename = step2Data.isVictoryMember === true ? "SAF_victory.png" : "SAF.png";
-      downloadBlob(safBlob, safFilename);
+      // Always use SAF.png as filename regardless of which base image was used
+      downloadBlob(safBlob, "SAF.png");
 
       setIsSubmitting(false);
       setIsComplete(true);

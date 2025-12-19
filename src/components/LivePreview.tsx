@@ -377,27 +377,35 @@ export function LivePreview({
         drawText(ctx, step1Data.church, positions.sendingChurch.x, positions.sendingChurch.y, canvas.width * 0.25, FONT_SIZE_PIC);
       }
     } else if (shouldShowSAF) {
-      // Draw SAF form data
+      // Apply offset only if NOT a Victory member (using SAF.png)
+      const offset = isVictoryMember !== true 
+        ? { 
+            x: SAF_POSITIONS.offset.x * canvas.width, 
+            y: SAF_POSITIONS.offset.y * canvas.height 
+          }
+        : { x: 0, y: 0 };
+
+      // Draw SAF form data (apply offset to checkboxes only)
       const positions = {
         unableToGoTeamFund: {
-          x: SAF_POSITIONS.unableToGoTeamFund.x * canvas.width,
-          y: SAF_POSITIONS.unableToGoTeamFund.y * canvas.height,
+          x: SAF_POSITIONS.unableToGoTeamFund.x * canvas.width + offset.x,
+          y: SAF_POSITIONS.unableToGoTeamFund.y * canvas.height + offset.y,
         },
         unableToGoGeneralFund: {
-          x: SAF_POSITIONS.unableToGoGeneralFund.x * canvas.width,
-          y: SAF_POSITIONS.unableToGoGeneralFund.y * canvas.height,
+          x: SAF_POSITIONS.unableToGoGeneralFund.x * canvas.width + offset.x,
+          y: SAF_POSITIONS.unableToGoGeneralFund.y * canvas.height + offset.y,
         },
         reroutedRetain: {
-          x: SAF_POSITIONS.reroutedRetain.x * canvas.width,
-          y: SAF_POSITIONS.reroutedRetain.y * canvas.height,
+          x: SAF_POSITIONS.reroutedRetain.x * canvas.width + offset.x,
+          y: SAF_POSITIONS.reroutedRetain.y * canvas.height + offset.y,
         },
         reroutedGeneralFund: {
-          x: SAF_POSITIONS.reroutedGeneralFund.x * canvas.width,
-          y: SAF_POSITIONS.reroutedGeneralFund.y * canvas.height,
+          x: SAF_POSITIONS.reroutedGeneralFund.x * canvas.width + offset.x,
+          y: SAF_POSITIONS.reroutedGeneralFund.y * canvas.height + offset.y,
         },
         canceledGeneralFund: {
-          x: SAF_POSITIONS.canceledGeneralFund.x * canvas.width,
-          y: SAF_POSITIONS.canceledGeneralFund.y * canvas.height,
+          x: SAF_POSITIONS.canceledGeneralFund.x * canvas.width + offset.x,
+          y: SAF_POSITIONS.canceledGeneralFund.y * canvas.height + offset.y,
         },
         signature: {
           x: SAF_POSITIONS.signature.x * canvas.width,

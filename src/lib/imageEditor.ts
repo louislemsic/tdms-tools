@@ -31,6 +31,8 @@ export interface SAFPositions {
   // Signature area
   signature: { x: number; y: number; width: number; height: number };
   partnerNameUnderSignature: { x: number; y: number };
+
+  offset: { x: number; y: number };
 }
 
 // Default positions (to be adjusted via trial and error)
@@ -53,6 +55,7 @@ export const SAF_POSITIONS: SAFPositions = {
   reroutedRetain: { x: 0.35, y: 0.555 },
   reroutedGeneralFund: { x: 0.35, y: 0.61 },
   canceledGeneralFund: { x: 0.687, y: 0.555 },
+  offset: { x: 0, y: -0.08 },
   signature: { x: 0.58, y: 0.70, width: 0.50, height: 0.2 },
   partnerNameUnderSignature: { x: 0.7, y: 0.845 },
 };
@@ -408,27 +411,35 @@ export async function generateSAF(
   // Load check image
   const checkImg = await loadImage("/images/check.png");
 
-  // Calculate absolute positions
+  // Apply offset only if NOT a Victory member (using SAF.png)
+  const offset = step2Data.isVictoryMember !== true 
+    ? { 
+        x: SAF_POSITIONS.offset.x * canvas.width, 
+        y: SAF_POSITIONS.offset.y * canvas.height 
+      }
+    : { x: 0, y: 0 };
+
+  // Calculate absolute positions (apply offset to checkboxes only)
   const positions = {
     unableToGoTeamFund: {
-      x: SAF_POSITIONS.unableToGoTeamFund.x * canvas.width,
-      y: SAF_POSITIONS.unableToGoTeamFund.y * canvas.height,
+      x: SAF_POSITIONS.unableToGoTeamFund.x * canvas.width + offset.x,
+      y: SAF_POSITIONS.unableToGoTeamFund.y * canvas.height + offset.y,
     },
     unableToGoGeneralFund: {
-      x: SAF_POSITIONS.unableToGoGeneralFund.x * canvas.width,
-      y: SAF_POSITIONS.unableToGoGeneralFund.y * canvas.height,
+      x: SAF_POSITIONS.unableToGoGeneralFund.x * canvas.width + offset.x,
+      y: SAF_POSITIONS.unableToGoGeneralFund.y * canvas.height + offset.y,
     },
     reroutedRetain: {
-      x: SAF_POSITIONS.reroutedRetain.x * canvas.width,
-      y: SAF_POSITIONS.reroutedRetain.y * canvas.height,
+      x: SAF_POSITIONS.reroutedRetain.x * canvas.width + offset.x,
+      y: SAF_POSITIONS.reroutedRetain.y * canvas.height + offset.y,
     },
     reroutedGeneralFund: {
-      x: SAF_POSITIONS.reroutedGeneralFund.x * canvas.width,
-      y: SAF_POSITIONS.reroutedGeneralFund.y * canvas.height,
+      x: SAF_POSITIONS.reroutedGeneralFund.x * canvas.width + offset.x,
+      y: SAF_POSITIONS.reroutedGeneralFund.y * canvas.height + offset.y,
     },
     canceledGeneralFund: {
-      x: SAF_POSITIONS.canceledGeneralFund.x * canvas.width,
-      y: SAF_POSITIONS.canceledGeneralFund.y * canvas.height,
+      x: SAF_POSITIONS.canceledGeneralFund.x * canvas.width + offset.x,
+      y: SAF_POSITIONS.canceledGeneralFund.y * canvas.height + offset.y,
     },
     signature: {
       x: SAF_POSITIONS.signature.x * canvas.width,
