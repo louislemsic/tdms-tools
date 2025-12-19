@@ -71,10 +71,10 @@ export function Step1Form({ initialValues, onDataChange }: Step1FormProps) {
 
   // Sync state when initialValues change (e.g., from URL params)
   useEffect(() => {
-    if (initialValues?.missionerName !== undefined) {
+    if (initialValues?.missionerName !== undefined && initialValues.missionerName !== missionerName) {
       setMissionerName(initialValues.missionerName);
     }
-    if (initialValues?.nation !== undefined) {
+    if (initialValues?.nation !== undefined && initialValues.nation !== nation) {
       setNation(initialValues.nation);
     }
     if (initialValues?.date !== undefined) {
@@ -82,15 +82,19 @@ export function Step1Form({ initialValues, onDataChange }: Step1FormProps) {
       // Validate: if date is in the past, don't set it
       const today = new Date();
       today.setHours(0, 0, 0, 0);
-      if (dateValue >= today) {
-        setDate(dateValue);
-      } else {
+      const isValidDate = dateValue >= today;
+      const dateToSet = isValidDate ? dateValue : undefined;
+      // Only update if the date actually changed
+      if (dateToSet?.getTime() !== date?.getTime()) {
+        setDate(dateToSet);
+      } else if (!dateToSet && date !== undefined) {
         setDate(undefined);
       }
     }
-    if (initialValues?.church !== undefined) {
+    if (initialValues?.church !== undefined && initialValues.church !== church) {
       setChurch(initialValues.church);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialValues]);
 
   useEffect(() => {

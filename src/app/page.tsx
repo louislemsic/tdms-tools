@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, Suspense } from "react";
+import { useEffect, useState, Suspense, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { MultiStepForm } from "@/components/MultiStepForm";
@@ -28,13 +28,20 @@ function HomeContent() {
   });
   const [countriesData, setCountriesData] = useState<Array<{ name: string; code: string }> | null>(null);
 
-  // Extract query parameters for pre-filling
-  const initialStep1 = {
-    missionerName: searchParams.get("name") || undefined,
-    nation: searchParams.get("nation") || undefined,
-    date: searchParams.get("date") ? new Date(searchParams.get("date")!) : undefined,
-    church: searchParams.get("church") || undefined,
-  };
+  // Extract query parameters for pre-filling - memoized to prevent infinite loops
+  const nameParam = searchParams.get("name");
+  const nationParam = searchParams.get("nation");
+  const dateParam = searchParams.get("date");
+  const churchParam = searchParams.get("church");
+  
+  const initialStep1 = useMemo(() => {
+    return {
+      missionerName: nameParam || undefined,
+      nation: nationParam || undefined,
+      date: dateParam ? new Date(dateParam) : undefined,
+      church: churchParam || undefined,
+    };
+  }, [nameParam, nationParam, dateParam, churchParam]);
 
   // Load countries data
   useEffect(() => {

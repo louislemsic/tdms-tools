@@ -31,21 +31,14 @@
       "sizes": "1080x1920",
       "type": "image/webp",
       "form_factor": "narrow",
-      "label": "Fill out a Personal Information Card"
+      "label": "Fill out your Information Card"
     },
     {
-      "src": "/screenshots/1.webp",
+      "src": "/screenshots/2.webp",
       "sizes": "1080x1920",
       "type": "image/webp",
       "form_factor": "narrow",
-      "label": "Fill out a Support Accountability Form"
-    },
-    {
-      "src": "/screenshots/1.webp",
-      "sizes": "1080x1920",
-      "type": "image/webp",
-      "form_factor": "narrow",
-      "label": "Send a pre-filled information to partners"
+      "label": "Fill out your Support Accountability Form"
     }
   ]
 }
