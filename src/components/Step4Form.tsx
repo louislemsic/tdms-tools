@@ -263,9 +263,9 @@ export function Step4Form({ initialValues, onDataChange }: Step4FormProps) {
 
         {/* Draw Signature Option */}
         {selectedMethod === "draw" && (
-          <div className="space-y-2">
+          <div className="space-y-3">
             <Label className="text-white">Draw Signature</Label>
-            <div className="border rounded-lg p-4 bg-white">
+            <div className="border rounded-lg p-4 bg-white mt-2">
               <canvas
                 ref={canvasRef}
                 width={600}
@@ -279,15 +279,15 @@ export function Step4Form({ initialValues, onDataChange }: Step4FormProps) {
                 onTouchMove={draw}
                 onTouchEnd={stopDrawing}
               />
-              <div className="flex gap-2 mt-2">
+              <div className="flex gap-2 mt-3 justift-center">
                 <Button
                   type="button"
                   variant="outline"
                   size="sm"
-                  className="border-white text-white hover:bg-white/10 hover:border-white"
+                  className="border-red-500 text-red-500 bg-red-500/10 hover:bg-red-500/70 hover:border-red-500 hover:text-white"
                   onClick={clearSignature}
                 >
-                  Clear
+                  Clear Drawing
                 </Button>
               </div>
             </div>

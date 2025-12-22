@@ -55,7 +55,7 @@ export function Step3Form({ initialValues, onDataChange }: Step3FormProps) {
                 className="mt-4"
               >
                 {questionData.choices.map((choice, choiceIndex) => (
-                  <div key={choiceIndex} className="flex items-center space-x-1">
+                  <div key={choiceIndex} className="flex items-center space-x-1 ml-5">
                     <RadioGroupItem value={choice} id={`q${index}-c${choiceIndex}`} />
                     <Label htmlFor={`q${index}-c${choiceIndex}`} className="font-normal cursor-pointer">
                       {choice}

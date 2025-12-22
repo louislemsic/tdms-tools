@@ -33,6 +33,8 @@ export function MultiStepForm({ initialStep1, initialStep2, onVictoryMemberChang
   const [step4ResetKey, setStep4ResetKey] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
+  const [picBlob, setPicBlob] = useState<Blob | null>(null);
+  const [safBlob, setSafBlob] = useState<Blob | null>(null);
 
   const handleStepClick = (step: number) => {
     // Allow navigating to any step
@@ -173,16 +175,18 @@ export function MultiStepForm({ initialStep1, initialStep2, onVictoryMemberChang
       };
 
       // Generate PIC image
-      const picBlob = await generatePIC(step1Data, step2Data, countriesData);
-      downloadBlob(picBlob, "PIC.png");
+      const generatedPicBlob = await generatePIC(step1Data, step2Data, countriesData);
+      setPicBlob(generatedPicBlob);
+      downloadBlob(generatedPicBlob, "PIC.png");
 
       // Add delay to ensure browser permission for multiple downloads
       await new Promise((resolve) => setTimeout(resolve, 500));
 
       // Generate SAF image
-      const safBlob = await generateSAF(step2Data, step3Data, step4DataWithSignature, accountabilityQuestions);
+      const generatedSafBlob = await generateSAF(step2Data, step3Data, step4DataWithSignature, accountabilityQuestions);
+      setSafBlob(generatedSafBlob);
       // Always use SAF.png as filename regardless of which base image was used
-      downloadBlob(safBlob, "SAF.png");
+      downloadBlob(generatedSafBlob, "SAF.png");
 
       setIsSubmitting(false);
       setIsComplete(true);
@@ -200,8 +204,22 @@ export function MultiStepForm({ initialStep1, initialStep2, onVictoryMemberChang
     setStep2Data(null);
     setStep3Data(null);
     setStep4Data(null);
+    setPicBlob(null);
+    setSafBlob(null);
     if (onStepChange) {
       onStepChange(1);
+    }
+  };
+
+  const handleDownloadPIC = () => {
+    if (picBlob) {
+      downloadBlob(picBlob, "PIC.png");
+    }
+  };
+
+  const handleDownloadSAF = () => {
+    if (safBlob) {
+      downloadBlob(safBlob, "SAF.png");
     }
   };
 
@@ -243,16 +261,44 @@ export function MultiStepForm({ initialStep1, initialStep2, onVictoryMemberChang
   if (isComplete) {
     return (
       <div className="space-y-6">
-        <div className="min-h-[400px] flex flex-col items-center justify-center gap-6">
-          <div className="text-center space-y-4">
-            <div className="h-16 w-16 mx-auto rounded-full bg-green-500 flex items-center justify-center">
-              <svg className="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-              </svg>
-            </div>
-            <h3 className="text-2xl font-semibold text-white">All done, the files should be downloaded.</h3>
+        <div className="min-h-[400px] flex flex-col justify-center gap-6">
+          <div className="space-y-4 mt-9">
+            <h2 className="text-2xl font-semibold text-white">
+              Thank you, {step2Data?.partnerName || "Partner"}!
+            </h2>
+            <h5 className="text-md font-normal text-white/90">
+              Your PIC and SAF should be downloading now. Please submit these files to <span className="underline">{step1Data?.missionerName || "the Missioner"}</span>, who will upload them to their portal.
+            </h5>
+            <p className="text-sm text-white/80">
+              In case the download did not start automatically, you may click the buttons below to download the files.
+            </p>
           </div>
-          <Button onClick={handleReset} size="lg">
+          
+          <div className="flex flex-col gap-3">
+            <Button
+              onClick={handleDownloadPIC}
+              variant="outline"
+              className="border-2 border-white bg-transparent text-white hover:bg-white/10 hover:border-white/80"
+            >
+              Download PIC
+            </Button>
+            <Button
+              onClick={handleDownloadSAF}
+              variant="outline"
+              className="border-2 border-white bg-transparent text-white hover:bg-white/10 hover:border-white/80"
+            >
+              Download SAF
+            </Button>
+          </div>
+
+          <div className="border-t border-bc-3/90 mt-6 pt-6" />
+
+          <Button
+            onClick={handleReset}
+            variant="outline"
+            className="bg-white hover:border-white/80 hover:bg-white/10 hover:text-white"
+          >
+            <ChevronLeft className="h-4 w-4 mr-2" />
             Fill up another one
           </Button>
         </div>
