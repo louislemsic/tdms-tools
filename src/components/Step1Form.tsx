@@ -342,6 +342,23 @@ export function Step1Form({ initialValues, onDataChange }: Step1FormProps) {
         </Label>
         <div className="grid grid-cols-3 gap-2">
           <div className="space-y-1">
+            <Label htmlFor="travel-year" className="text-xs text-white/70">
+              Year
+            </Label>
+            <Select value={year} onValueChange={setYear}>
+              <SelectTrigger id="travel-year" className="hover:bg-white hover:border-bc-1/30">
+                <SelectValue placeholder="Year" />
+              </SelectTrigger>
+              <SelectContent>
+                {yearOptions.map((yearOption) => (
+                  <SelectItem key={yearOption} value={yearOption}>
+                    {yearOption}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="space-y-1">
             <Label htmlFor="travel-month" className="text-xs text-white/70">
               Month
             </Label>
@@ -370,23 +387,6 @@ export function Step1Form({ initialValues, onDataChange }: Step1FormProps) {
                 {dayOptions.map((dayOption) => (
                   <SelectItem key={dayOption} value={dayOption}>
                     {dayOption}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          <div className="space-y-1">
-            <Label htmlFor="travel-year" className="text-xs text-white/70">
-              Year
-            </Label>
-            <Select value={year} onValueChange={setYear}>
-              <SelectTrigger id="travel-year" className="hover:bg-white hover:border-bc-1/30">
-                <SelectValue placeholder="Year" />
-              </SelectTrigger>
-              <SelectContent>
-                {yearOptions.map((yearOption) => (
-                  <SelectItem key={yearOption} value={yearOption}>
-                    {yearOption}
                   </SelectItem>
                 ))}
               </SelectContent>
