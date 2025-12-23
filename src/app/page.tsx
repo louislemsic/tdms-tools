@@ -57,15 +57,17 @@ function HomeContent() {
       {/* Left Panel - Settings */}
       <div className="w-full lg:w-1/3 bg-bc-2 p-4 md:p-6 lg:p-8 overflow-y-auto">
         <div className="max-w-2xl mx-auto">
-          <div className="mb-6 flex items-center gap-4">
-            <Image
-              src="/images/logo_full.png"
-              alt="TDMS Tools Logo"
-              width={560}
-              height={1000}
-              className="h-24 md:h-20 w-auto object-contain shrink-0"
-              priority
-            />
+          <div className="mb-6 flex items-stretch gap-4">
+            <div className="flex items-center shrink-0 grow-0 self-stretch">
+              <Image
+                src="/images/logo_full.png"
+                alt="TDMS Tools Logo"
+                width={560}
+                height={1000}
+                className="h-full w-auto max-h-16 sm:max-h-20 md:max-h-15 object-contain p-0.5"
+                priority
+              />
+            </div>
             <div className="flex-1 min-w-0">
               <PrivacyInfoBanner />
             </div>
