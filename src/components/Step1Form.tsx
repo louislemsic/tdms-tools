@@ -30,13 +30,54 @@ interface Step1FormProps {
   onDataChange?: (data: Step1Data) => void;
 }
 
+// Helper function to parse date strings in multiple formats
+function parseDateString(dateInput: string | Date | undefined): Date | undefined {
+  if (!dateInput) return undefined;
+  if (dateInput instanceof Date) return dateInput;
+  
+  const dateStr = String(dateInput).trim();
+  if (!dateStr) return undefined;
+
+  // Try YYYY-MM-DD format (ISO format)
+  const isoMatch = dateStr.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (isoMatch) {
+    const [, year, month, day] = isoMatch;
+    const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+    if (!isNaN(date.getTime())) {
+      date.setHours(0, 0, 0, 0);
+      return date;
+    }
+  }
+
+  // Try MM-DD-YYYY format
+  const usMatch = dateStr.match(/^(\d{2})-(\d{2})-(\d{4})$/);
+  if (usMatch) {
+    const [, month, day, year] = usMatch;
+    const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+    if (!isNaN(date.getTime())) {
+      date.setHours(0, 0, 0, 0);
+      return date;
+    }
+  }
+
+  // Fall back to native Date parsing
+  const date = new Date(dateStr);
+  if (!isNaN(date.getTime())) {
+    date.setHours(0, 0, 0, 0);
+    return date;
+  }
+
+  return undefined;
+}
+
 export function Step1Form({ initialValues, onDataChange }: Step1FormProps) {
   const [missionerName, setMissionerName] = useState(initialValues?.missionerName || "");
   const [nation, setNation] = useState(initialValues?.nation || "");
   const [date, setDate] = useState<Date | undefined>(() => {
     if (!initialValues?.date) return undefined;
-    const dateValue = initialValues.date instanceof Date ? initialValues.date : new Date(initialValues.date as any);
+    const dateValue = parseDateString(initialValues.date);
     // Validate: if date is in the past, return undefined
+    if (!dateValue) return undefined;
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     if (dateValue < today) return undefined;
@@ -207,11 +248,11 @@ export function Step1Form({ initialValues, onDataChange }: Step1FormProps) {
       setNation(initialValues.nation);
     }
     if (initialValues?.date !== undefined) {
-      const dateValue = initialValues.date instanceof Date ? initialValues.date : new Date(initialValues.date as any);
+      const dateValue = parseDateString(initialValues.date);
       // Validate: if date is in the past, don't set it
       const today = new Date();
       today.setHours(0, 0, 0, 0);
-      const isValidDate = dateValue >= today;
+      const isValidDate = dateValue && dateValue >= today;
       const dateToSet = isValidDate ? dateValue : undefined;
       // Only update if the date actually changed
       if (dateToSet?.getTime() !== date?.getTime()) {
