@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState, Suspense, useMemo } from "react";
-import { useSearchParams } from "next/navigation";
+import { useEffect, useState, Suspense, useMemo, useRef } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { MultiStepForm } from "@/components/MultiStepForm";
@@ -14,6 +14,7 @@ import type { Step4Data } from "@/components/Step4Form";
 
 function HomeContent() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
   const [isVictoryMember, setIsVictoryMember] = useState<boolean | null>(null);
   const [formData, setFormData] = useState<{
@@ -28,6 +29,7 @@ function HomeContent() {
     step4: null,
   });
   const [countriesData, setCountriesData] = useState<Array<{ name: string; code: string }> | null>(null);
+  const hasClearedParams = useRef(false);
 
   // Extract query parameters for pre-filling - memoized to prevent infinite loops
   const nameParam = searchParams.get("name");
@@ -43,6 +45,19 @@ function HomeContent() {
       church: churchParam || undefined,
     };
   }, [nameParam, nationParam, dateParam, churchParam]);
+
+  // Clear URL parameters after reading them (only once)
+  useEffect(() => {
+    // Check if there are any URL parameters
+    const hasParams = nameParam || nationParam || dateParam || churchParam;
+    
+    if (hasParams && !hasClearedParams.current) {
+      // Mark as cleared to prevent multiple calls
+      hasClearedParams.current = true;
+      // Replace URL without query parameters
+      router.replace("/");
+    }
+  }, [nameParam, nationParam, dateParam, churchParam, router]);
 
   // Load countries data
   useEffect(() => {
