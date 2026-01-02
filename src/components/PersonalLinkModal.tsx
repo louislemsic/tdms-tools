@@ -1,10 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Step1Form, type Step1Data } from "@/components/Step1Form";
-import { Copy, Check } from "lucide-react";
+import { Copy, Check, Download } from "lucide-react";
+import QRCode from "react-qr-code";
+import { downloadQRCode } from "@/lib/qr";
 
 interface PersonalLinkModalProps {
   open: boolean;
@@ -16,6 +18,7 @@ export function PersonalLinkModal({ open, onOpenChange, initialValues }: Persona
   const [formData, setFormData] = useState<Step1Data | null>(null);
   const [generatedLink, setGeneratedLink] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const qrCodeRef = useRef<HTMLDivElement>(null);
 
   const handleFormDataChange = (data: Step1Data) => {
     setFormData(data);
@@ -59,6 +62,11 @@ export function PersonalLinkModal({ open, onOpenChange, initialValues }: Persona
     }
   };
 
+  const handleDownloadQR = () => {
+    if (!qrCodeRef.current || !generatedLink) return;
+    downloadQRCode(qrCodeRef.current);
+  };
+
   const handleClose = (open: boolean) => {
     onOpenChange(open);
     // Reset state when closing
@@ -73,7 +81,7 @@ export function PersonalLinkModal({ open, onOpenChange, initialValues }: Persona
 
   return (
     <Dialog open={open} onOpenChange={(open) => handleClose(open)}>
-      <DialogContent className="max-w-xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-md max-h-[90vh] overflow-y-auto">
         {!generatedLink ? (
           <>
             <DialogHeader>
@@ -106,7 +114,7 @@ export function PersonalLinkModal({ open, onOpenChange, initialValues }: Persona
             <div className="mt-1 space-y-4">
               <div className="space-y-2">
                 <label className="text-sm font-medium text-white">Generated Link</label>
-                <div className="flex gap-2">
+                <div className="flex gap-2 mt-1">
                   <input
                     type="text"
                     readOnly
@@ -126,19 +134,25 @@ export function PersonalLinkModal({ open, onOpenChange, initialValues }: Persona
 
               <div className="space-y-2">
                 <label className="text-sm font-medium text-white">QR Code</label>
-                <div className="w-full h-64 bg-bc-1/10 border border-bc-1/30 rounded-md flex items-center justify-center">
-                  <p className="text-white/60 text-sm">QR Code placeholder - Coming soon</p>
+                <div className="flex justify-center mt-1">
+                  <div
+                    ref={qrCodeRef}
+                    className="inline-flex bg-white p-4 border border-bc-1/30 rounded-md items-center justify-center"
+                  >
+                    {generatedLink && <QRCode value={generatedLink} size={323} />}
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div className="flex justify-end mt-6">
+            <div className="flex justify-end mt-3">
               <Button
-                onClick={() => handleClose(false)}
+                onClick={handleDownloadQR}
                 variant="outline"
                 className="bg-white hover:border-white/80 hover:bg-white/10 hover:text-white"
               >
-                Close
+                <Download className="h-4 w-4 mr-2" />
+                Download
               </Button>
             </div>
           </>
