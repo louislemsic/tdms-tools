@@ -74,4 +74,3 @@ export function downloadQRCode(qrCodeElement: HTMLElement | null, filename: stri
     console.error("Failed to download QR code:", err);
   }
 }
-

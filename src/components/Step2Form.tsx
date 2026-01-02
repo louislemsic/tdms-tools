@@ -81,7 +81,9 @@ export function Step2Form({ initialValues, onDataChange }: Step2FormProps) {
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="partner-name" className="text-white">Partner&apos;s Name</Label>
+        <Label htmlFor="partner-name" className="text-white">
+          Partner&apos;s Name
+        </Label>
         <Input
           id="partner-name"
           value={partnerName}
@@ -92,7 +94,9 @@ export function Step2Form({ initialValues, onDataChange }: Step2FormProps) {
 
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label htmlFor="amount" className="text-white">Amount</Label>
+          <Label htmlFor="amount" className="text-white">
+            Amount
+          </Label>
           <Input
             id="amount"
             type="number"
@@ -102,7 +106,9 @@ export function Step2Form({ initialValues, onDataChange }: Step2FormProps) {
           />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="denomination" className="text-white">Denomination</Label>
+          <Label htmlFor="denomination" className="text-white">
+            Denomination
+          </Label>
           <Select value={denomination} onValueChange={(value: "PHP" | "USD") => setDenomination(value)}>
             <SelectTrigger id="denomination">
               <SelectValue />
@@ -116,7 +122,9 @@ export function Step2Form({ initialValues, onDataChange }: Step2FormProps) {
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="email" className="text-white">Email Address</Label>
+        <Label htmlFor="email" className="text-white">
+          Email Address
+        </Label>
         <Input
           id="email"
           type="email"
@@ -127,7 +135,9 @@ export function Step2Form({ initialValues, onDataChange }: Step2FormProps) {
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="mobile" className="text-white">Mobile Number</Label>
+        <Label htmlFor="mobile" className="text-white">
+          Mobile Number
+        </Label>
         <Input
           id="mobile"
           type="tel"
@@ -138,7 +148,9 @@ export function Step2Form({ initialValues, onDataChange }: Step2FormProps) {
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="local-church" className="text-white">Local Church</Label>
+        <Label htmlFor="local-church" className="text-white">
+          Local Church
+        </Label>
         <Input
           id="local-church"
           value={localChurch}
@@ -148,7 +160,9 @@ export function Step2Form({ initialValues, onDataChange }: Step2FormProps) {
       </div>
 
       <div className="space-y-2 border-t border-bc-3/90 pt-6 mt-6">
-        <Label htmlFor="victory-member" className="text-white">Are you a member of Victory Christian Fellowship in the Philippines?</Label>
+        <Label htmlFor="victory-member" className="text-white">
+          Are you a member of Victory Christian Fellowship in the Philippines?
+        </Label>
         <RadioGroup
           value={isVictoryMember === null ? "" : isVictoryMember ? "yes" : "no"}
           onValueChange={(value) => setIsVictoryMember(value === "yes" ? true : value === "no" ? false : null)}

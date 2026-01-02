@@ -35,7 +35,7 @@ interface Step1FormProps {
 function parseDateString(dateInput: string | Date | undefined): Date | undefined {
   if (!dateInput) return undefined;
   if (dateInput instanceof Date) return dateInput;
-  
+
   const dateStr = String(dateInput).trim();
   if (!dateStr) return undefined;
 
@@ -306,7 +306,9 @@ export function Step1Form({ initialValues, onDataChange, hideHeader = false }: S
       )}
 
       <div className="space-y-2">
-        <Label htmlFor="missioner-name" className="text-white">Missioner&apos;s Name</Label>
+        <Label htmlFor="missioner-name" className="text-white">
+          Missioner&apos;s Name
+        </Label>
         <Input
           id="missioner-name"
           value={missionerName}
@@ -316,7 +318,9 @@ export function Step1Form({ initialValues, onDataChange, hideHeader = false }: S
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="nation" className="text-white">Nation</Label>
+        <Label htmlFor="nation" className="text-white">
+          Nation
+        </Label>
         <Popover open={nationSearchOpen} onOpenChange={setNationSearchOpen}>
           <PopoverTrigger asChild>
             <Button
@@ -434,7 +438,9 @@ export function Step1Form({ initialValues, onDataChange, hideHeader = false }: S
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="sending-church" className="text-white">Sending Church</Label>
+        <Label htmlFor="sending-church" className="text-white">
+          Sending Church
+        </Label>
         <Input
           id="sending-church"
           value={church}

@@ -86,7 +86,9 @@ export function PersonalLinkModal({ open, onOpenChange, initialValues }: Persona
           <>
             <DialogHeader>
               <DialogTitle className="text-2xl font-bold">Generate a Pre-filled Form</DialogTitle>
-              <DialogDescription>So that it&apos;s easier for missioners when sending to mission partners!</DialogDescription>
+              <DialogDescription>
+                So that it&apos;s easier for missioners when sending to mission partners!
+              </DialogDescription>
             </DialogHeader>
 
             <div className="mt-1">
@@ -161,4 +163,3 @@ export function PersonalLinkModal({ open, onOpenChange, initialValues }: Persona
     </Dialog>
   );
 }
-

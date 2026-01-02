@@ -29,7 +29,7 @@ interface MultiStepFormProps {
 function parseDateString(dateInput: string | Date | undefined): Date | undefined {
   if (!dateInput) return undefined;
   if (dateInput instanceof Date) return dateInput;
-  
+
   const dateStr = String(dateInput).trim();
   if (!dateStr) return undefined;
 
@@ -89,18 +89,18 @@ export function MultiStepForm({
     if (initialStep1 && !step1Data) {
       // Parse date if it's a string
       const parsedDate = parseDateString(initialStep1.date);
-      
+
       // Validate that date is not in the past
       const today = new Date();
       today.setHours(0, 0, 0, 0);
       const isValidDate = parsedDate && parsedDate >= today;
-      
+
       // Check if all required fields are present and valid
       const hasMissionerName = initialStep1.missionerName && initialStep1.missionerName.trim() !== "";
       const hasNation = !!initialStep1.nation;
       const hasDate = isValidDate;
       const hasChurch = initialStep1.church && initialStep1.church.trim() !== "";
-      
+
       if (hasMissionerName && hasNation && hasDate && hasChurch && parsedDate) {
         // All fields are present and valid, populate step1Data and advance to Step 2
         const completeStep1Data: Step1Data = {
