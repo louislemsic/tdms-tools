@@ -46,7 +46,7 @@ export function PersonalLinkModal({ open, onOpenChange, initialValues }: Persona
 
     // Get current origin (domain)
     const origin = typeof window !== "undefined" ? window.location.origin : "";
-    const link = `${origin}?${params.toString()}`;
+    const link = `${origin}/?${params.toString()}`;
     setGeneratedLink(link);
   };
 
