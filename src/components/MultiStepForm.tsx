@@ -7,9 +7,10 @@ import { Step1Form, type Step1Data } from "@/components/Step1Form";
 import { Step2Form, type Step2Data } from "@/components/Step2Form";
 import { Step3Form, type Step3Data } from "@/components/Step3Form";
 import { Step4Form, type Step4Data } from "@/components/Step4Form";
-import { Loader2, ChevronLeft, ChevronRight } from "lucide-react";
+import { Loader2, ChevronLeft, ChevronRight, Link } from "lucide-react";
 import { generatePIC, generateSAF, downloadBlob } from "@/lib/imageEditor";
 import { accountabilityQuestions } from "@/lib/questions";
+import { PersonalLinkModal } from "@/components/PersonalLinkModal";
 
 interface MultiStepFormProps {
   initialStep1?: Partial<Step1Data>;
@@ -41,6 +42,7 @@ export function MultiStepForm({
   const [isComplete, setIsComplete] = useState(false);
   const [picBlob, setPicBlob] = useState<Blob | null>(null);
   const [safBlob, setSafBlob] = useState<Blob | null>(null);
+  const [isPersonalLinkModalOpen, setIsPersonalLinkModalOpen] = useState(false);
 
   const handleStepClick = (step: number) => {
     // Allow navigating to any step
@@ -318,7 +320,7 @@ export function MultiStepForm({
 
       <div className="min-h-[400px]">{renderStep()}</div>
 
-      <div className="flex justify-between">
+      <div className="flex justify-between mt-7">
         {currentStep > 1 ? (
           <Button
             onClick={handleBack}
@@ -329,7 +331,14 @@ export function MultiStepForm({
             Back
           </Button>
         ) : (
-          <div />
+          <Button
+            onClick={() => setIsPersonalLinkModalOpen(true)}
+            variant="outline"
+            className="bg-white hover:border-white/80 hover:bg-white/10 hover:text-white"
+          >
+            <Link className="h-4 w-4" />
+            Get Personal Link
+          </Button>
         )}
         {currentStep < 4 ? (
           <Button
@@ -351,6 +360,12 @@ export function MultiStepForm({
           </Button>
         ) : null}
       </div>
+
+      <PersonalLinkModal
+        open={isPersonalLinkModalOpen}
+        onOpenChange={setIsPersonalLinkModalOpen}
+        initialValues={step1Data || undefined}
+      />
     </div>
   );
 }

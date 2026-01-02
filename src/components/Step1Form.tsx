@@ -28,6 +28,7 @@ export interface Step1Data {
 interface Step1FormProps {
   initialValues?: Partial<Step1Data>;
   onDataChange?: (data: Step1Data) => void;
+  hideHeader?: boolean;
 }
 
 // Helper function to parse date strings in multiple formats
@@ -70,7 +71,7 @@ function parseDateString(dateInput: string | Date | undefined): Date | undefined
   return undefined;
 }
 
-export function Step1Form({ initialValues, onDataChange }: Step1FormProps) {
+export function Step1Form({ initialValues, onDataChange, hideHeader = false }: Step1FormProps) {
   const [missionerName, setMissionerName] = useState(initialValues?.missionerName || "");
   const [nation, setNation] = useState(initialValues?.nation || "");
   const [date, setDate] = useState<Date | undefined>(() => {
@@ -295,12 +296,14 @@ export function Step1Form({ initialValues, onDataChange }: Step1FormProps) {
 
   return (
     <div className="space-y-4">
-      <div>
-        <h2 className="text-xl font-semibold text-white">Missioner Information</h2>
-        <p className="text-sm text-white/80 mt-1">
-          Please enter the details of the missioner you will support along with their travel details.
-        </p>
-      </div>
+      {!hideHeader && (
+        <div>
+          <h2 className="text-xl font-semibold text-white">Missioner Information</h2>
+          <p className="text-sm text-white/80 mt-1">
+            Please enter the details of the missioner you will support along with their travel details.
+          </p>
+        </div>
+      )}
 
       <div className="space-y-2">
         <Label htmlFor="missioner-name" className="text-white">Missioner&apos;s Name</Label>
